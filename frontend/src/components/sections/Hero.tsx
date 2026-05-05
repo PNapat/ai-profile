@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function Hero() {
   return (
     <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
@@ -36,9 +38,13 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-sm">
-          Photo
-        </div>
+        <Image
+          src="/profile.jpg"
+          alt="Profile photo"
+          width={208}
+          height={208}
+          className="w-52 h-52 rounded-full object-cover"
+        />
       </div>
     </section>
   );
