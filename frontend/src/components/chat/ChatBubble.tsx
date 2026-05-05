@@ -34,7 +34,10 @@ export default function ChatBubble() {
       const res = await fetch(`${apiBase}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({
+          message: text,
+          thread: messages.map(({ role, content }) => ({ role, content })),
+        }),
       });
       const data = await res.json();
       const aiMsg: ChatMessage = {

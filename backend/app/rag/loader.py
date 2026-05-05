@@ -11,7 +11,9 @@ def load_documents() -> list[dict[str, Any]]:
     if not DOCUMENTS_DIR.exists():
         return docs
 
-    for path in sorted(DOCUMENTS_DIR.iterdir()):
+    for path in sorted(DOCUMENTS_DIR.rglob("*")):
+        if not path.is_file():
+            continue
         if path.suffix.lower() == ".pdf":
             docs.extend(_load_pdf(path))
         elif path.suffix.lower() == ".md":

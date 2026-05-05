@@ -1,9 +1,15 @@
 from pydantic import BaseModel
 
 
+class ThreadMessage(BaseModel):
+    role: str
+    content: str
+
+
 class ChatRequest(BaseModel):
     message: str
     session_id: str | None = None
+    thread: list[ThreadMessage] = []
 
 
 class ChatResponse(BaseModel):
