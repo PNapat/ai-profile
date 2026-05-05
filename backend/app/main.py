@@ -9,10 +9,10 @@ from app.routers import chat, ingest, profile
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings = get_settings()
-    print(f"🚀 Backend starting | LLM: {settings.llm_model}")
-    print(f"📦 Qdrant: {settings.qdrant_host}:{settings.qdrant_port}")
+    print(f"Backend starting | LLM: {settings.llm_model}")
+    print(f"Qdrant: {settings.qdrant_host}:{settings.qdrant_port}")
     yield
-    print("👋 Shutting down")
+    print("Shutting down")
 
 
 app = FastAPI(
