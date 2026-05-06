@@ -24,11 +24,12 @@ def ingest(
     collection = s.qdrant_collection
 
     existing = {c.name for c in client.get_collections().collections}
-    if collection not in existing:
-        client.create_collection(
-            collection_name=collection,
-            vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
-        )
+    if collection in existing:
+        client.delete_collection(collection_name=collection)
+    client.create_collection(
+        collection_name=collection,
+        vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
+    )
 
     points = [
         PointStruct(

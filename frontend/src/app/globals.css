@@ -10,3 +10,36 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+@layer utilities {
+  .fade-section {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+  }
+
+  .fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-animate {
+  opacity: 0;
+  animation: hero-fade-up 0.7s ease-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 133, 255, 0.55); }
+  70%  { box-shadow: 0 0 0 18px rgba(0, 133, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 133, 255, 0); }
+}
+
+.chat-pulse {
+  animation: pulse-glow 2s ease-out 3;
+}
