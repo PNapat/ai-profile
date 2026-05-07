@@ -22,7 +22,7 @@ function ChatIcon() {
 }
 
 export default function ChatBubble() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -102,16 +102,23 @@ export default function ChatBubble() {
       <button
         id="chat-trigger"
         onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
-        className="chat-pulse fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#0085FF] hover:bg-[#0353A4] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
+        className={`chat-pulse fixed bottom-6 right-6 z-50 bg-[#0085FF] hover:bg-[#0353A4] text-white shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 ${
+          isOpen
+            ? "w-10 h-10 rounded-full"
+            : "h-11 px-4 gap-2 rounded-full"
+        }`}
         aria-label="Open AI chat"
         suppressHydrationWarning
       >
         {isOpen ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         ) : (
-          <ChatIcon />
+          <>
+            <ChatIcon />
+            <span className="text-sm font-semibold whitespace-nowrap">Ask AI about me</span>
+          </>
         )}
       </button>
 
@@ -121,8 +128,14 @@ export default function ChatBubble() {
           {/* Header */}
           <div className="px-5 py-4 bg-[#001233] flex items-center justify-between flex-shrink-0">
             <div>
-              <h3 className="font-bold text-white text-sm">Chat with my AI</h3>
-              <p className="text-white/40 text-xs mt-0.5">RAG-powered · answers from my docs</p>
+              <h3 className="font-bold text-white text-sm">Ask me anything</h3>
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/50 font-medium">text-embedding-3-small</span>
+                <span className="text-white/20 text-[10px]">·</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/50 font-medium">Retrieved by Qdrant</span>
+                <span className="text-white/20 text-[10px]">·</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/50 font-medium">GPT-4o-mini</span>
+              </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}

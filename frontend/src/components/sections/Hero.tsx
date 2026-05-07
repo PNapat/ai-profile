@@ -10,26 +10,61 @@ const STATS = [
   { value: "M.Eng.", label: "Industrial Engineering" },
 ];
 
-// All uploaded photos, ordered so the most striking ones land at the top of the orbit
-const ORBIT_PHOTOS = [
-  "/photo-extra8.JPG",   // 12 o'clock — concert hall saxophone
-  "/photo-extra5.JPG",   // ~33°       — close-up portrait
-  "/photo-extra7.jpeg",  // ~65°       — studio saxophone
-  "/photo-extra.JPG",    // ~98°       — stage performance
-  "/photo-extra4.JPG",   // ~131°      — stadium solo
-  "/photo-peking2.jpg",  // ~164°      — rainy Beijing gate
-  "/photo-peking1.jpg",  // ~196°      — Peking group
-  "/photo-extra2.JPG",   // ~229°      — large group
-  "/photo-extra3.JPG",   // ~262°      — small group
-  "/photo-extra6.JPG",   // ~295°      — casual stadium
-  "/photo-extra9.jpeg",  // ~327°      — C.U. Band outdoor
+// Profile sits at z-[20]. Photos at z-[10] slide under it at the edges.
+// Profile bounds approx: top=154 left=146 right=334 bottom=386
+const PHOTOS = [
+
+  // ── loikratong ──
+  { src: "/photo-extra.JPG",    w:  96, h: 120, top:  40, left: 170, tilt:  3.5, float: "a", dur: 4.5, delay:  0   },
+  // ── bell tower ──
+  { src: "/photo-peking1.jpg",  w: 130, h:  88, top:  80, left:  48, tilt: -4.5, float: "b", dur: 5.2, delay: -1.5 },
+  // ── stand small group ──
+  { src: "/photo-extra3.JPG",   w: 112, h:  78, top:  80, left: 284, tilt:  3.5, float: "c", dur: 4.8, delay: -3   },
+  // ── solo stand ──
+  { src: "/photo-extra5.JPG",   w:  92, h: 120, top: 355, left: 122, tilt: -2.5, float: "b", dur: 5.8, delay: -1   },
+  // ── tainanmen ──
+  { src: "/photo-peking2.jpg",  w:  84, h: 106, top: 182, left:  68, tilt: -5,   float: "d", dur: 5.5, delay: -0.8 },
+  // ── solo2 ──
+  { src: "/photo-extra6.JPG",   w:  80, h: 104, top: 370, left: 264, tilt:  3.5, float: "a", dur: 4.9, delay: -2.8 },
+  // ── impark ──
+  { src: "/photo-extra11.jpg",  w:  90, h: 115, top: 420, left: 180, tilt: -2,   float: "d", dur: 5.0, delay: -1.2 },
+  // ── voa promote ──
+  { src: "/photo-extra7.jpeg",  w:  86, h: 110, top: 300, left:  18, tilt:  3,   float: "a", dur: 4.3, delay: -2.2 },
+  // ── voa ──
+  { src: "/photo-extra8.JPG",   w:  90, h: 114, top: 172, left: 340, tilt: -3,   float: "c", dur: 4.6, delay: -3.5 },
+  // ── walkie ──
+  { src: "/photo-extra10.jpg",   w:  76, h:  98, top: 130, left: 400, tilt:  3.5, float: "a", dur: 4.4, delay: -2.5 },
+  // ── football film ──
+  { src: "/photo-extra4.JPG",   w:  80, h: 102, top: 295, left: 372, tilt:  5,   float: "d", dur: 5.1, delay: -0.5 },
+  // ── krabi ──
+  { src: "/photo-extra9.jpeg",  w: 120, h:  84, top: 460, left:  38, tilt:  4,   float: "c", dur: 4.7, delay: -3.2 },
+  // ── stand group ──
+  { src: "/photo-extra2.JPG",   w: 118, h:  82, top: 452, left: 306, tilt: -3.5, float: "b", dur: 5.3, delay: -1.8 },
 ];
 
-const ORBIT_R = 205;   // orbit radius
-const PHOTO_SZ = 52;   // orbit photo diameter
-const CX = 240;        // center x in container
-const CY = 270;        // center y in container
-const DURATION = 70;   // seconds per revolution
+// Badge positions: scattered like sticky notes, aggressive tilts, not symmetric
+const BADGES = [
+  {
+    title: "KPMG Thailand", sub: "Credit Risk Consultant",
+    style: { top: 28, right: 10 }, tilt: 0,
+    bg: "bg-white/10 border-white/20",
+  },
+  {
+    title: "Peking University", sub: "Teaching Assistant",
+    style: { top: 145, left: -20}, tilt: 0,
+    bg: "bg-white/[0.08] border-white/15",
+  },
+  {
+    title: "Chulalongkorn", sub: "M.Eng. B.Eng IE (1st Class)",
+    style: { bottom: 110, left: -30 }, tilt: 0,
+    bg: "bg-[rgba(0,133,255,0.18)] border-[#0085FF]/30",
+  },
+  {
+    title: "2 Journal Publications", sub: "Springer · Fuji Technology Press",
+    style: { top: 400, right: -60 }, tilt: 0,
+    bg: "bg-white/[0.08] border-white/15",
+  },
+];
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -37,15 +72,14 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen bg-[#001233] flex items-center overflow-hidden">
-      {/* Background grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: [
-            "radial-gradient(ellipse at 75% 20%, rgba(0, 133, 255, 0.14) 0%, transparent 55%)",
-            "radial-gradient(ellipse at 10% 80%, rgba(3, 83, 164, 0.18) 0%, transparent 50%)",
-            "linear-gradient(rgba(100, 181, 246, 0.055) 1px, transparent 1px)",
-            "linear-gradient(90deg, rgba(100, 181, 246, 0.055) 1px, transparent 1px)",
+            "radial-gradient(ellipse at 75% 20%, rgba(0,133,255,0.14) 0%, transparent 55%)",
+            "radial-gradient(ellipse at 10% 80%, rgba(3,83,164,0.18) 0%, transparent 50%)",
+            "linear-gradient(rgba(100,181,246,0.055) 1px, transparent 1px)",
+            "linear-gradient(90deg, rgba(100,181,246,0.055) 1px, transparent 1px)",
           ].join(", "),
           backgroundSize: "auto, auto, 52px 52px, 52px 52px",
         }}
@@ -56,20 +90,16 @@ export default function Hero() {
 
           {/* ── Left: text ── */}
           <div className="flex-1 space-y-6">
-
             <div className="hero-animate" style={{ animationDelay: "0ms" }}>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#0085FF]/35 bg-[#0085FF]/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0085FF] animate-pulse" />
-                <span className="text-[#64B5F6] text-xs font-semibold tracking-[0.18em] uppercase">
-                  AI / ML Engineer
-                </span>
+                <span className="text-[#64B5F6] text-xs font-semibold tracking-[0.18em] uppercase">AI / ML Engineer</span>
               </span>
             </div>
 
             <div className="hero-animate" style={{ animationDelay: "120ms" }}>
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight">
-                Napat<br />
-                <span className="text-[#0085FF]">Seelpipat</span>
+                Napat<br /><span className="text-[#0085FF]">Seelpipat</span>
               </h1>
             </div>
 
@@ -82,31 +112,27 @@ export default function Hero() {
             </div>
 
             <div className="hero-animate flex flex-wrap gap-3" style={{ animationDelay: "360ms" }}>
-              <a
-                href="/resume.pdf"
-                download
-                className="px-6 py-3 bg-white text-[#001233] rounded-xl text-sm font-semibold hover:bg-[#D4ECFF] transition-colors"
-              >
+              <a href="/resume.pdf" download className="px-6 py-3 bg-white text-[#001233] rounded-xl text-sm font-semibold hover:bg-[#D4ECFF] transition-colors">
                 Download Resume
               </a>
               {mounted ? (
                 <button
                   onClick={() => document.getElementById("chat-trigger")?.click()}
-                  className="px-6 py-3 border border-white/20 text-white rounded-xl text-sm font-semibold hover:border-[#0085FF] hover:text-[#64B5F6] transition-colors"
+                  className="btn-bounce px-6 py-3 border border-white/20 text-white rounded-xl text-sm font-semibold hover:border-[#0085FF] hover:text-[#64B5F6] transition-colors"
                 >
                   Ask My AI →
                 </button>
               ) : (
-                <span className="px-6 py-3 border border-white/20 text-white rounded-xl text-sm font-semibold invisible" aria-hidden>
-                  Ask My AI →
-                </span>
+                <span className="px-6 py-3 border border-white/20 text-white rounded-xl text-sm font-semibold invisible" aria-hidden>Ask My AI →</span>
               )}
             </div>
 
             <div className="hero-animate flex flex-wrap items-center gap-5" style={{ animationDelay: "480ms" }}>
-              <a href="https://github.com/PNapat" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">GitHub</a>
+
               <a href="https://linkedin.com/in/napat-seelpipat" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">LinkedIn</a>
               <div className="h-4 w-px bg-white/15" />
+              <a href="https://scholar.google.com/citations?user=grEnfs4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">Google Scholar Profile</a>
+
               <div className="flex gap-5">
                 {STATS.map((s) => (
                   <div key={s.label}>
@@ -118,114 +144,65 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right: orbital photo ring ── */}
-          <div
-            className="hero-animate relative flex-shrink-0 w-[480px] h-[560px]"
-            style={{ animationDelay: "200ms" }}
-          >
-            {/* Orbit ring path */}
-            <div
-              className="absolute rounded-full pointer-events-none"
-              style={{
-                width: ORBIT_R * 2,
-                height: ORBIT_R * 2,
-                top: CY - ORBIT_R,
-                left: CX - ORBIT_R,
-                border: "1px dashed rgba(100,181,246,0.07)",
-              }}
-            />
+          {/* ── Right: scattered photo stack ── */}
+          <div className="hero-animate relative flex-shrink-0 w-[480px] h-[560px]" style={{ animationDelay: "200ms" }}>
 
-            {/* Orbiting photos — each anchor rotates, inner photo counter-rotates to stay upright */}
-            {ORBIT_PHOTOS.map((src, i) => {
-              // delay places photo i at its initial angle (12 o'clock = 270° in CSS rotate space)
-              const delay = -(((270 + (i / ORBIT_PHOTOS.length) * 360) % 360) / 360) * DURATION;
-              return (
-                <div
-                  key={src}
-                  className="absolute"
-                  style={{
-                    top: CY,
-                    left: CX,
-                    width: 0,
-                    height: 0,
-                    animationName: "orbit-cw",
-                    animationDuration: `${DURATION}s`,
-                    animationTimingFunction: "linear",
-                    animationIterationCount: "infinite",
-                    animationDelay: `${delay}s`,
-                  }}
-                >
-                  {/* Static translateX — moves along the rotating X axis → circular orbit */}
-                  <div style={{ transform: `translateX(${ORBIT_R}px)` }}>
-                    <div
-                      style={{
-                        position: "relative",
-                        width: PHOTO_SZ,
-                        height: PHOTO_SZ,
-                        marginLeft: -(PHOTO_SZ / 2),
-                        marginTop: -(PHOTO_SZ / 2),
-                        borderRadius: "50%",
-                        overflow: "hidden",
-                        opacity: 0.55,
-                        border: "1px solid rgba(0,133,255,0.3)",
-                        animationName: "orbit-ccw",
-                        animationDuration: `${DURATION}s`,
-                        animationTimingFunction: "linear",
-                        animationIterationCount: "infinite",
-                        animationDelay: `${delay}s`,
-                      }}
-                    >
-                      <Image src={src} alt="" fill className="object-cover object-center" sizes="52px" />
-                    </div>
+            {/* Scattered photos — z-[10], slide under profile */}
+            {PHOTOS.map((p) => (
+              <div
+                key={p.src}
+                className="absolute z-[10]"
+                style={{ top: p.top, left: p.left, width: p.w, height: p.h, transform: `rotate(${p.tilt}deg)` }}
+              >
+                <div style={{
+                  width: "100%", height: "100%",
+                  animationName: `float-${p.float}`,
+                  animationDuration: `${p.dur}s`,
+                  animationTimingFunction: "ease-in-out",
+                  animationIterationCount: "infinite",
+                  animationDelay: `${p.delay}s`,
+                }}>
+                  <div style={{
+                    position: "relative", width: "100%", height: "100%",
+                    borderRadius: "8px", overflow: "hidden",
+                    opacity: 0.65,
+                    border: "1px solid rgba(100,181,246,0.18)",
+                    boxShadow: "0 4px 18px rgba(0,0,0,0.55)",
+                  }}>
+                    <Image src={p.src} alt="" fill className="object-cover object-center" sizes={`${p.w}px`} />
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
 
-            {/* Profile photo — centered, above orbit photos */}
-            <div
-              className="absolute z-[30]"
-              style={{ width: 188, height: 188, top: CY - 94, left: CX - 94 }}
-            >
-              {/* Glow ring */}
-              <div
-                className="absolute rounded-full bg-[#0085FF]/20 blur-2xl"
-                style={{ inset: "-20px" }}
-              />
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-[#0085FF]/45 shadow-[0_0_48px_rgba(0,133,255,0.22)]">
+            {/* Profile photo — z-[20], sits on top of scattered frames */}
+            <div className="absolute z-[20]" style={{ top: 154, left: 146, width: 188, height: 232 }}>
+              <div className="absolute rounded-2xl bg-[#0085FF]/15 blur-2xl" style={{ inset: "-18px" }} />
+              <div className="relative w-full h-full overflow-hidden" style={{
+                borderRadius: "14px",
+                border: "1.5px solid rgba(0,133,255,0.38)",
+                boxShadow: "0 0 48px rgba(0,133,255,0.16), 0 8px 32px rgba(0,0,0,0.5)",
+              }}>
                 <Image src="/profile.jpg" alt="Napat Seelpipat" fill className="object-cover" priority sizes="188px" />
               </div>
             </div>
 
-            {/* Badge: KPMG — top-right */}
-            <div className="absolute top-[96px] right-[6px] z-[40] -rotate-[1deg] bg-white/10 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/20 shadow-[0_4px_24px_rgba(0,0,0,0.3)]">
-              <p className="text-white text-sm font-bold leading-none">KPMG Thailand</p>
-              <p className="text-white/50 text-[11px] mt-1">Credit Risk Consultant</p>
-            </div>
-
-            {/* Badge: Peking Uni — top-left */}
-            <div className="absolute top-[96px] left-[6px] z-[40] rotate-[1deg] bg-white/[0.08] backdrop-blur-xl rounded-2xl px-4 py-2.5 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.25)]">
-              <p className="text-white text-sm font-bold leading-none">Peking University</p>
-              <p className="text-white/50 text-[11px] mt-1">Teaching Assistant</p>
-            </div>
-
-            {/* Badge: Chula — bottom-left */}
-            <div className="absolute bottom-[90px] left-[6px] z-[40] rotate-[1.5deg] bg-[rgba(0,133,255,0.18)] backdrop-blur-xl rounded-2xl px-4 py-3 border border-[#0085FF]/30 shadow-[0_4px_24px_rgba(0,133,255,0.15)]">
-              <p className="text-white text-sm font-bold leading-none">Chulalongkorn Univ.</p>
-              <p className="text-white/50 text-[11px] mt-1">M.Sc. CS · B.Eng IE (1st Class)</p>
-            </div>
-
-            {/* Badge: Publications — bottom-right */}
-            <div className="absolute bottom-[90px] right-[6px] z-[40] -rotate-[1.5deg] bg-white/[0.08] backdrop-blur-xl rounded-2xl px-4 py-2.5 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.25)]">
-              <p className="text-white text-sm font-bold leading-none">2 Publications</p>
-              <p className="text-white/50 text-[11px] mt-1">Springer · Fuji Technology Press</p>
-            </div>
+            {/* Badges — z-[30], scattered like sticky notes */}
+            {BADGES.map((b) => (
+              <div
+                key={b.title}
+                className={`absolute z-[30] backdrop-blur-xl rounded-2xl px-4 py-2.5 border shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${b.bg}`}
+                style={{ ...b.style, transform: `rotate(${b.tilt}deg)` }}
+              >
+                <p className="text-white text-sm font-bold leading-none">{b.title}</p>
+                <p className="text-white/50 text-[11px] mt-1">{b.sub}</p>
+              </div>
+            ))}
           </div>
 
         </div>
       </div>
 
-      {/* Bottom fade to white */}
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </section>
   );

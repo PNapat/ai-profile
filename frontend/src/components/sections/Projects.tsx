@@ -30,7 +30,7 @@ export default function Projects() {
   const ref = useFadeIn<HTMLElement>();
 
   return (
-    <section id="projects" ref={ref} className="fade-section bg-white py-28">
+    <section id="projects" ref={ref} className="fade-section bg-[#EBF3FA] py-28">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-8 h-px bg-[#0085FF]" />
@@ -46,13 +46,13 @@ export default function Projects() {
           {PROJECTS.map((project) => (
             <div
               key={project.title}
-              className="group relative border border-gray-100 rounded-2xl overflow-hidden bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+              className="group relative border border-[#D4ECFF] rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer"
             >
               {/* Left accent bar on hover */}
               <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#0085FF] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
               {/* Thumbnail placeholder */}
-              <div className="h-36 bg-[#EBF3FA] flex items-center justify-center border-b border-gray-100 group-hover:bg-[#D4ECFF] transition-colors duration-200">
+              <div className="h-36 bg-[#D4ECFF]/50 flex items-center justify-center border-b border-[#D4ECFF] group-hover:bg-[#D4ECFF] transition-colors duration-200">
                 <div className="text-center">
                   <div className="w-10 h-10 rounded-xl bg-white mx-auto flex items-center justify-center mb-2 shadow-sm">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0085FF" strokeWidth="1.8">
@@ -81,7 +81,7 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 bg-[#EBF3FA] text-[#0353A4] rounded-md text-xs font-medium"
+                      className="px-2 py-0.5 bg-[#D4ECFF]/70 text-[#0353A4] rounded-md text-xs font-medium"
                     >
                       {t}
                     </span>

@@ -61,38 +61,6 @@ export default function About() {
             </div>
           </div>
         </div>
-
-        {/* Photo grid */}
-        <div className="mt-14 grid grid-cols-12 gap-3 h-[380px]">
-          {/* Large left — portrait saxophone shot */}
-          <div className="col-span-7 relative rounded-2xl overflow-hidden">
-            <Image
-              src="/photo-extra8.JPG"
-              alt="Performing with the Chulalongkorn University Band"
-              fill
-              className="object-cover object-center hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          {/* Right column — two stacked */}
-          <div className="col-span-5 grid grid-rows-2 gap-3">
-            <div className="relative rounded-2xl overflow-hidden">
-              <Image
-                src="/photo-peking1.jpg"
-                alt="Peking University Globex program"
-                fill
-                className="object-cover object-center hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="relative rounded-2xl overflow-hidden">
-              <Image
-                src="/photo-extra.JPG"
-                alt="Live saxophone performance on stage"
-                fill
-                className="object-cover object-top hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
