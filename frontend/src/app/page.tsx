@@ -6,7 +6,7 @@ import Projects from "@/components/sections/Projects";
 import Certificates from "@/components/sections/Certificates";
 import Resume from "@/components/sections/Resume";
 import Footer from "@/components/sections/Footer";
-import ChatBubble from "@/components/chat/ChatBubble";
+import ChatBubbleClient from "@/components/chat/ChatBubbleClient";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
         <Resume />
       </main>
       <Footer />
-      <ChatBubble />
+      <ChatBubbleClient />
     </>
   );
 }

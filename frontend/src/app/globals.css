@@ -34,6 +34,15 @@ body {
   animation: hero-fade-up 0.7s ease-out forwards;
 }
 
+@keyframes orbit-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes orbit-ccw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
 @keyframes pulse-glow {
   0%   { box-shadow: 0 0 0 0 rgba(0, 133, 255, 0.55); }
   70%  { box-shadow: 0 0 0 18px rgba(0, 133, 255, 0); }

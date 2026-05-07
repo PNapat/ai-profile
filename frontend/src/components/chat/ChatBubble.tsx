@@ -104,6 +104,7 @@ export default function ChatBubble() {
         onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
         className="chat-pulse fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#0085FF] hover:bg-[#0353A4] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
         aria-label="Open AI chat"
+        suppressHydrationWarning
       >
         {isOpen ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -126,6 +127,7 @@ export default function ChatBubble() {
             <button
               onClick={() => setIsOpen(false)}
               className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              suppressHydrationWarning
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
                 <path d="M18 6L6 18M6 6l12 12" />
@@ -144,6 +146,7 @@ export default function ChatBubble() {
                       key={q}
                       onClick={() => sendMessage(q)}
                       className="text-left px-3 py-2.5 text-xs border border-[#D4ECFF] bg-white rounded-xl hover:bg-[#EBF3FA] hover:border-[#64B5F6] text-[#334155] transition-colors leading-snug"
+                      suppressHydrationWarning
                     >
                       {q}
                     </button>
@@ -221,11 +224,13 @@ export default function ChatBubble() {
                 onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
                 placeholder="Ask me anything..."
                 className="flex-1 px-4 py-2.5 bg-[#F8FAFB] border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-[#0085FF] focus:bg-white transition-all text-[#334155] placeholder-[#94A3B8]"
+                suppressHydrationWarning
               />
               <button
                 onClick={() => sendMessage(input)}
                 disabled={isLoading || !input.trim()}
                 className="px-4 py-2.5 bg-[#0085FF] text-white rounded-xl text-sm font-semibold hover:bg-[#0353A4] disabled:opacity-40 transition-colors"
+                suppressHydrationWarning
               >
                 Send
               </button>

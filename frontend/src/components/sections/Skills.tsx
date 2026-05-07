@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
 const SKILL_CATEGORIES = [
@@ -23,6 +24,8 @@ const SKILL_CATEGORIES = [
 
 export default function Skills() {
   const ref = useFadeIn<HTMLElement>();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <section id="skills" ref={ref} className="fade-section bg-[#001233] py-28">
@@ -39,22 +42,29 @@ export default function Skills() {
               Skills &amp; tools
             </h2>
           </div>
-          <button
-            onClick={() =>
-              window.dispatchEvent(
-                new CustomEvent("ai-chat-prompt", {
-                  detail: {
-                    message:
-                      "Give me a concise overview of Napat's technical skills and what makes him stand out as an engineer. Highlight his strongest areas and any unique combinations of expertise.",
-                  },
-                })
-              )
-            }
-            className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 border border-[#0085FF]/40 text-[#64B5F6] text-sm rounded-xl hover:bg-[#0085FF]/10 transition-colors whitespace-nowrap group"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0085FF] group-hover:animate-pulse" />
-            AI Summary
-          </button>
+          {mounted ? (
+            <button
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent("ai-chat-prompt", {
+                    detail: {
+                      message:
+                        "Give me a concise overview of Napat's technical skills and what makes him stand out as an engineer. Highlight his strongest areas and any unique combinations of expertise.",
+                    },
+                  })
+                )
+              }
+              className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 border border-[#0085FF]/40 text-[#64B5F6] text-sm rounded-xl hover:bg-[#0085FF]/10 transition-colors whitespace-nowrap group"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0085FF] group-hover:animate-pulse" />
+              AI Summary
+            </button>
+          ) : (
+            <span className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 border border-[#0085FF]/40 text-[#64B5F6] text-sm rounded-xl whitespace-nowrap invisible" aria-hidden>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0085FF]" />
+              AI Summary
+            </span>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 gap-5">
