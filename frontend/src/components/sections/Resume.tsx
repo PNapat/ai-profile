@@ -84,7 +84,7 @@ export default function Resume() {
               ))}
             </div>
             <a
-              href="/resume.pdf"
+              href="/Napat_Seelpipat_Resume.pdf"
               download
               className="mt-8 block text-center px-5 py-3 bg-[#0085FF] text-white rounded-xl text-sm font-semibold hover:bg-[#0353A4] transition-colors"
             >

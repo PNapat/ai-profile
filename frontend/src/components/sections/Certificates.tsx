@@ -105,16 +105,6 @@ const CERTIFICATES: Certificate[] = [
     theme: "from-[#0076D6]/10 to-[#34C6F4]/10",
   },
   {
-    name: "SAS Programming 2: Data Manipulation Techniques",
-    issuer: "SAS",
-    date: "KPMG tenure",
-    file: "/certs/SAS Programming 2.png",
-    fileType: "image",
-    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/SAS_logo_horiz.svg",
-    logoAlt: "SAS logo",
-    theme: "from-[#0076D6]/10 to-[#00A6A6]/10",
-  },
-  {
     name: "SAS Programming 1: Essentials",
     issuer: "SAS",
     date: "KPMG tenure",
@@ -123,6 +113,16 @@ const CERTIFICATES: Certificate[] = [
     logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/SAS_logo_horiz.svg",
     logoAlt: "SAS logo",
     theme: "from-[#0076D6]/10 to-[#9BD7D1]/10",
+  },
+  {
+    name: "SAS Programming 2: Data Manipulation Techniques",
+    issuer: "SAS",
+    date: "KPMG tenure",
+    file: "/certs/SAS Programming 2.png",
+    fileType: "image",
+    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/SAS_logo_horiz.svg",
+    logoAlt: "SAS logo",
+    theme: "from-[#0076D6]/10 to-[#00A6A6]/10",
   },
 ];
 

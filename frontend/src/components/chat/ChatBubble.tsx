@@ -229,6 +229,9 @@ export default function ChatBubble() {
 
           {/* Input */}
           <div className="p-3 border-t border-gray-100 bg-white flex-shrink-0">
+            <p className="mb-2 text-[10px] leading-4 text-[#94A3B8]">
+              AI can make mistakes. Please verify important details from the listed sources or my resume.
+            </p>
             <div className="flex gap-2">
               <input
                 type="text"

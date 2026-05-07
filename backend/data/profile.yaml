@@ -91,17 +91,20 @@ skills:
     level: "advanced"
 
 projects:
-  - title: "AI Profile Website"
-    description: "This website — a RAG-powered portfolio with a chatbot that answers questions about me from my personal documents. Built with Next.js, FastAPI, LangChain, and Qdrant."
-    tech: ["Next.js", "FastAPI", "LangChain", "Qdrant", "Docker"]
-    github: "https://github.com/yourusername/ai-profile"
-  - title: "Document Q&A System"
-    description: "Enterprise document question-answering system using retrieval-augmented generation. Supports PDF, Word, and markdown ingestion with multi-turn conversation."
-    tech: ["Python", "LangGraph", "ChromaDB", "OpenAI"]
+  - title: "Twitter Sentiment Analysis of Bangkok Tourism During COVID-19"
+    description: "Journal of Disaster Research paper using support vector machines to classify Twitter sentiment around Bangkok tourism during the COVID-19 lockdown period."
+    tech: ["NLP", "Sentiment analysis", "SVM", "Twitter data"]
+    link: "https://doi.org/10.20965/jdr.2021.p0024"
     github: ""
-  - title: "ML Pipeline Orchestrator"
-    description: "End-to-end ML pipeline for training, evaluation, and deployment of NLP models. Includes experiment tracking, model versioning, and automated A/B testing."
-    tech: ["Python", "MLflow", "Docker", "FastAPI"]
+  - title: "Analyzing Adolescents' E-cigarette Initiation Tendency"
+    description: "Journal of Computational Social Science research applying explainable machine learning to identify factors associated with youth e-cigarette curiosity and susceptibility."
+    tech: ["Explainable AI", "Random Forest", "XGBoost", "SHAP"]
+    link: "https://doi.org/10.1007/s42001-025-00423-6"
+    github: ""
+  - title: "Predicting E-cigarette Curiosity and Susceptibility Among Students"
+    description: "Master's thesis analyzing student e-cigarette curiosity and susceptibility using machine learning techniques and interpretable factor analysis."
+    tech: ["Machine learning", "Public health", "Feature analysis", "Thesis"]
+    link: "/Thesis%20Report.pdf"
     github: ""
 
 certificates:
@@ -156,9 +159,9 @@ certificates:
     credential_url: "/certs/SAS%20Programming%201.png"
     logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/SAS_logo_horiz.svg"
 
-resume_url: "/resume.pdf"
+resume_url: "/Napat_Seelpipat_Resume.pdf"
 
 social:
-  github: "https://github.com/yourusername"
-  linkedin: "https://linkedin.com/in/yourusername"
-  email: "your.email@example.com"
+  linkedin: "https://linkedin.com/in/napat-seelpipat-205415280"
+  email: "napat.seelpipat@gmail.com"
+  phone: "+66 80 552 2557"

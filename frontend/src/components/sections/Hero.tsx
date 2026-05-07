@@ -112,7 +112,7 @@ export default function Hero() {
             </div>
 
             <div className="hero-animate flex flex-wrap gap-3" style={{ animationDelay: "360ms" }}>
-              <a href="/resume.pdf" download className="px-6 py-3 bg-white text-[#001233] rounded-xl text-sm font-semibold hover:bg-[#D4ECFF] transition-colors">
+              <a href="/Napat_Seelpipat_Resume.pdf" download className="px-6 py-3 bg-white text-[#001233] rounded-xl text-sm font-semibold hover:bg-[#D4ECFF] transition-colors">
                 Download Resume
               </a>
               {mounted ? (
@@ -129,7 +129,7 @@ export default function Hero() {
 
             <div className="hero-animate flex flex-wrap items-center gap-5" style={{ animationDelay: "480ms" }}>
 
-              <a href="https://linkedin.com/in/napat-seelpipat" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/napat-seelpipat-205415280/" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">LinkedIn</a>
               <div className="h-4 w-px bg-white/15" />
               <a href="https://scholar.google.com/citations?user=grEnfs4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">Google Scholar Profile</a>
 
