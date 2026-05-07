@@ -77,7 +77,7 @@ export default function Projects() {
         <div className="flex items-center gap-3 mb-6">
           <div className="w-8 h-px bg-[#0085FF]" />
           <span className="text-[#0085FF] text-xs font-semibold tracking-[0.2em] uppercase">
-            Selected work
+            Publications
           </span>
         </div>
         <h2 className="text-4xl md:text-5xl font-bold text-[#001233] mb-14 leading-tight">
