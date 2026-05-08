@@ -10,6 +10,22 @@ const STATS = [
   { value: "M.Eng.", label: "Industrial Engineering (Thesis: Very Good)" },
 ];
 
+const COLLAGE_WIDTH = 480;
+const COLLAGE_HEIGHT = 560;
+
+function pct(value: number, base: number) {
+  return `${(value / base) * 100}%`;
+}
+
+function badgeStyle(style: Record<string, number>) {
+  return {
+    ...(style.top !== undefined ? { top: pct(style.top, COLLAGE_HEIGHT) } : {}),
+    ...(style.bottom !== undefined ? { bottom: pct(style.bottom, COLLAGE_HEIGHT) } : {}),
+    ...(style.left !== undefined ? { left: pct(style.left, COLLAGE_WIDTH) } : {}),
+    ...(style.right !== undefined ? { right: pct(style.right, COLLAGE_WIDTH) } : {}),
+  };
+}
+
 // Profile sits at z-[20]. Photos at z-[10] slide under it at the edges.
 // Profile bounds approx: top=154 left=146 right=334 bottom=386
 const PHOTOS = [
@@ -141,7 +157,7 @@ export default function Hero() {
               <div className="h-4 w-px bg-white/15" />
               <a href="https://scholar.google.com/citations?user=grEnfs4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors">Google Scholar Profile</a>
 
-              <div className="flex gap-5">
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
                 {STATS.map((s) => (
                   <div key={s.label}>
                     <span className="text-white text-sm font-bold">{s.value}</span>
@@ -153,14 +169,20 @@ export default function Hero() {
           </div>
 
           {/* ── Right: scattered photo stack ── */}
-          <div className="hero-animate relative flex-shrink-0 w-[480px] h-[560px]" style={{ animationDelay: "200ms" }}>
+          <div className="hero-animate relative flex-shrink-0 w-full max-w-[480px] aspect-[6/7]" style={{ animationDelay: "200ms" }}>
 
             {/* Scattered photos — z-[10], slide under profile */}
             {PHOTOS.map((p) => (
               <div
                 key={p.src}
                 className="absolute z-[10]"
-                style={{ top: p.top, left: p.left, width: p.w, height: p.h, transform: `rotate(${p.tilt}deg)` }}
+                style={{
+                  top: pct(p.top, COLLAGE_HEIGHT),
+                  left: pct(p.left, COLLAGE_WIDTH),
+                  width: pct(p.w, COLLAGE_WIDTH),
+                  height: pct(p.h, COLLAGE_HEIGHT),
+                  transform: `rotate(${p.tilt}deg)`,
+                }}
               >
                 <div style={{
                   width: "100%", height: "100%",
@@ -184,7 +206,15 @@ export default function Hero() {
             ))}
 
             {/* Profile photo — z-[20], sits on top of scattered frames */}
-            <div className="absolute z-[20]" style={{ top: 154, left: 146, width: 188, height: 232 }}>
+            <div
+              className="absolute z-[20]"
+              style={{
+                top: pct(154, COLLAGE_HEIGHT),
+                left: pct(146, COLLAGE_WIDTH),
+                width: pct(188, COLLAGE_WIDTH),
+                height: pct(232, COLLAGE_HEIGHT),
+              }}
+            >
               <div className="absolute rounded-2xl bg-[#0085FF]/15 blur-2xl" style={{ inset: "-18px" }} />
               <div className="relative w-full h-full overflow-hidden" style={{
                 borderRadius: "14px",
@@ -199,11 +229,11 @@ export default function Hero() {
             {BADGES.map((b) => (
               <div
                 key={b.title}
-                className={`absolute z-[30] backdrop-blur-xl rounded-2xl px-4 py-2.5 border shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${b.bg}`}
-                style={{ ...b.style, transform: `rotate(${b.tilt}deg)` }}
+                className={`absolute z-[30] max-w-[42%] backdrop-blur-xl rounded-xl sm:rounded-2xl px-2.5 py-2 sm:px-4 sm:py-2.5 border shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${b.bg}`}
+                style={{ ...badgeStyle(b.style), transform: `rotate(${b.tilt}deg)` }}
               >
-                <p className="text-white text-sm font-bold leading-none">{b.title}</p>
-                <p className="text-white/50 text-[11px] mt-1">{b.sub}</p>
+                <p className="text-white text-[10px] sm:text-sm font-bold leading-none">{b.title}</p>
+                <p className="text-white/50 text-[9px] sm:text-[11px] mt-1 leading-tight">{b.sub}</p>
               </div>
             ))}
           </div>

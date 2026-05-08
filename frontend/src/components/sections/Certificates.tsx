@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Award, CalendarDays, ExternalLink, FileImage, FileText, X } from "lucide-react";
+import { Award, CalendarDays, ExternalLink, FileImage, FileText } from "lucide-react";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
 type Certificate = {
@@ -39,17 +38,17 @@ const CERTIFICATES: Certificate[] = [
     logoAlt: "IBM logo",
     theme: "from-[#0F62FE]/10 to-[#6EA8FE]/5",
   },
-  // {
-  //   name: "Generative AI Engineering with LLMs",
-  //   issuer: "IBM",
-  //   provider: "Coursera",
-  //   date: "November 2025",
-  //   file: "/certs/Coursera Generative AI Engineering with LLMs.pdf",
-  //   fileType: "pdf",
-  //   logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/IBM_logo.svg",
-  //   logoAlt: "IBM logo",
-  //   theme: "from-[#0F62FE]/10 to-[#24A148]/5",
-  // },
+  {
+    name: "Generative AI Engineering with LLMs",
+    issuer: "IBM",
+    provider: "Coursera",
+    date: "November 2025",
+    file: "/certs/Coursera Generative AI Engineering with LLMs.pdf",
+    fileType: "pdf",
+    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/IBM_logo.svg",
+    logoAlt: "IBM logo",
+    theme: "from-[#0F62FE]/10 to-[#24A148]/5",
+  },
   {
     name: "IBM Data Science",
     issuer: "IBM",
@@ -135,27 +134,6 @@ function encodeAssetPath(path: string) {
 
 export default function Certificates() {
   const ref = useFadeIn<HTMLElement>();
-  const [selected, setSelected] = useState<Certificate | null>(null);
-  const selectedFile = useMemo(
-    () => (selected ? encodeAssetPath(selected.file) : ""),
-    [selected]
-  );
-
-  useEffect(() => {
-    if (!selected) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelected(null);
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [selected]);
 
   return (
     <section id="certificates" ref={ref} className="fade-section bg-[#EBF3FA] py-28">
@@ -179,14 +157,16 @@ export default function Certificates() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {CERTIFICATES.map((cert) => {
             const FileIcon = cert.fileType === "pdf" ? FileText : FileImage;
+            const certFile = encodeAssetPath(cert.file);
 
             return (
-              <button
+              <a
                 key={cert.file}
-                type="button"
-                onClick={() => setSelected(cert)}
+                href={certFile}
+                target="_blank"
+                rel="noreferrer"
                 className={`group min-h-[218px] text-left bg-gradient-to-br ${cert.theme} border border-white/80 rounded-lg p-5 shadow-sm hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0085FF] focus-visible:ring-offset-2 transition-all duration-200`}
-                aria-label={`Open ${cert.name} certificate`}
+                aria-label={`Open ${cert.name} certificate in a new tab`}
               >
                 <div className="flex items-start justify-between gap-4 mb-5">
                   <div className="h-14 w-24 rounded-md bg-white border border-[#D4ECFF] px-3 py-2 flex items-center justify-center">
@@ -223,78 +203,11 @@ export default function Certificates() {
                     <span>{cert.fileType === "pdf" ? "PDF certificate" : "Image certificate"}</span>
                   </div>
                 </div>
-              </button>
+              </a>
             );
           })}
         </div>
       </div>
-
-      {selected && (
-        <div
-          className="fixed inset-0 z-50 bg-[#001233]/75 px-4 py-6 md:p-8 flex items-center justify-center"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="certificate-modal-title"
-          onMouseDown={() => setSelected(null)}
-        >
-          <div
-            className="w-full max-w-5xl h-[86vh] bg-white rounded-lg shadow-2xl overflow-hidden flex flex-col"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-start justify-between gap-4 border-b border-[#E2E8F0] px-5 py-4">
-              <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0085FF]">
-                  {selected.issuer}
-                  {selected.provider ? ` via ${selected.provider}` : ""}
-                </p>
-                <h3
-                  id="certificate-modal-title"
-                  className="text-lg font-bold text-[#001233] leading-snug mt-1"
-                >
-                  {selected.name}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href={selectedFile}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="h-10 px-3 rounded-md bg-[#0353A4] text-white text-sm font-semibold flex items-center gap-2 hover:bg-[#023E7D] transition-colors"
-                >
-                  <ExternalLink size={16} aria-hidden="true" />
-                  Open
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setSelected(null)}
-                  className="h-10 w-10 rounded-md border border-[#CBD5E1] text-[#334155] flex items-center justify-center hover:bg-[#F1F5F9] transition-colors"
-                  aria-label="Close certificate preview"
-                >
-                  <X size={18} aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex-1 bg-[#F8FAFC] p-3 md:p-5">
-              {selected.fileType === "pdf" ? (
-                <iframe
-                  src={selectedFile}
-                  title={`${selected.name} certificate preview`}
-                  className="h-full w-full rounded-md border border-[#CBD5E1] bg-white"
-                />
-              ) : (
-                <div className="h-full w-full overflow-auto rounded-md border border-[#CBD5E1] bg-white flex items-center justify-center p-4">
-                  <img
-                    src={selectedFile}
-                    alt={`${selected.name} certificate`}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
