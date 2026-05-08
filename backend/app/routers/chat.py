@@ -38,7 +38,7 @@ SEARCH_TOOL = {
 }
 
 
-@router.post("/")
+@router.post("", include_in_schema=True)
 async def chat(request: ChatRequest):
     settings = get_settings()
     client = AsyncOpenAI(api_key=settings.openai_api_key)
@@ -60,20 +60,30 @@ async def chat(request: ChatRequest):
     sources: list[str] = []
 
     if choice.finish_reason == "tool_calls":
-        tool_call = choice.message.tool_calls[0]
-        query = json.loads(tool_call.function.arguments)["query"]
+        # Handle ALL tool calls, not just the first one
+        tool_messages = []
+        for tool_call in choice.message.tool_calls:
+            query = json.loads(tool_call.function.arguments)["query"]
+            query_vector = embed_texts([query])[0]
+            hits = search(query_vector, top_k=5)
+            context = "\n\n---\n\n".join(h["text"] for h in hits)
+            sources.extend([h["metadata"]["filename"] for h in hits])
 
-        query_vector = embed_texts([query])[0]
-        hits = search(query_vector, top_k=5)
-        context = "\n\n---\n\n".join(h["text"] for h in hits)
-        sources = list({h["metadata"]["filename"] for h in hits})
+            tool_messages.append({
+                "role": "tool",
+                "tool_call_id": tool_call.id,
+                "content": context,
+            })
+
+        # Deduplicate sources
+        sources = list(set(sources))
 
         second = await client.chat.completions.create(
             model=settings.llm_model,
             messages=[
                 *messages,
                 choice.message,
-                {"role": "tool", "tool_call_id": tool_call.id, "content": context},
+                *tool_messages,
             ],
         )
         response_text = second.choices[0].message.content
