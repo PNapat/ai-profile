@@ -28,7 +28,7 @@ export default function ChatBubble() {
   const [isLoading, setIsLoading] = useState(false);
   const [showTooltip, setShowTooltip] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const latestSendMessage = useRef<(text: string) => void>(() => {});
+  const latestSendMessage = useRef<(text: string, instructions?: string) => void>(() => {});
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,16 +41,16 @@ export default function ChatBubble() {
 
   useEffect(() => {
     const handler = (e: Event) => {
-      const { message } = (e as CustomEvent<{ message: string }>).detail;
+      const { message, instructions } = (e as CustomEvent<{ message: string; instructions?: string }>).detail;
       setIsOpen(true);
       setShowTooltip(false);
-      setTimeout(() => latestSendMessage.current(message), 80);
+      setTimeout(() => latestSendMessage.current(message, instructions), 80);
     };
     window.addEventListener("ai-chat-prompt", handler);
     return () => window.removeEventListener("ai-chat-prompt", handler);
   }, []);
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, instructions?: string) => {
     if (!text.trim() || isLoading) return;
 
     const userMsg: ChatMessage = { role: "user", content: text };
@@ -65,6 +65,7 @@ export default function ChatBubble() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: text,
+          instructions,
           thread: messages.map(({ role, content }) => ({ role, content })),
         }),
       });

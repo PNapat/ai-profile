@@ -45,6 +45,7 @@ async def chat(request: ChatRequest):
 
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
+        *([{"role": "system", "content": request.instructions}] if request.instructions else []),
         *[{"role": m.role, "content": m.content} for m in request.thread],
         {"role": "user", "content": request.message},
     ]

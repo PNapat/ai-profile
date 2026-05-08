@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ExternalLink, FileText, X } from "lucide-react";
+import Image from "next/image";
+import { ExternalLink, X } from "lucide-react";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
 type Project = {
@@ -11,6 +12,7 @@ type Project = {
   status: string;
   link?: string;
   previewFile?: string;
+  image: string;
 };
 
 const PROJECTS: Project[] = [
@@ -18,9 +20,10 @@ const PROJECTS: Project[] = [
     title: "Twitter Sentiment Analysis of Bangkok Tourism During COVID-19",
     description:
       "Built an NLP sentiment analysis pipeline using support vector machines to classify tourism-related Twitter data during the COVID-19 lockdown and extract public sentiment insights from social media.",
-    tech: ["NLP", "Sentiment analysis", "SVM", "Twitter data"],
+    tech: ["NLP", "NLTK", "Sentiment Analysis", "SVM", "TF-IDF", "Twitter data"],
     status: "Publication",
     link: "https://doi.org/10.20965/jdr.2021.p0024",
+    image: "/journal_twitter.jpg",
   },
   {
     title: "Analyzing Adolescents’ E-cigarette Initiation Tendency using Explainable Machine Learning",
@@ -29,14 +32,16 @@ const PROJECTS: Project[] = [
     tech: ["Explainable AI", "Random Forest", "XGBoost", "SHAP"],
     status: "Publication",
     link: "https://doi.org/10.1007/s42001-025-00423-6",
+    image: "/journal_ecig.jpg",
   },
   {
     title: "Predicting E-cigarette Curiosity and Susceptibility Among Students",
     description:
       "Developed multiclass machine learning pipelines using XGBoost, feature selection, oversampling, and one-vs-rest strategies to predict varying levels of adolescent e-cigarette curiosity and susceptibility.",
-    tech: ["Machine learning", "Public health", "Feature analysis", "Thesis"],
+    tech: ["Explainable AI", "MissForest", "Multiclass", "Boruta-SHAP", "OvR", "SMOTE", "ADASYN"],
     status: "Thesis",
     previewFile: "/Thesis Report.pdf",
+    image: "/journal_thesis.jpg",
   },
 ];
 
@@ -45,6 +50,21 @@ function encodeAssetPath(path: string) {
     .split("/")
     .map((part) => (part ? encodeURIComponent(part) : part))
     .join("/");
+}
+
+function ProjectPreviewImage({ project }: { project: Project }) {
+  return (
+    <div className="relative h-44 bg-[#D4ECFF]/50 border-b border-[#D4ECFF] overflow-hidden">
+      <Image
+        src={project.image}
+        alt={`${project.title} preview`}
+        fill
+        className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#001233]/35 via-transparent to-transparent opacity-70" />
+    </div>
+  );
 }
 
 export default function Projects() {
@@ -112,22 +132,9 @@ export default function Projects() {
               >
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#0085FF] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
-                <div className="h-36 bg-[#D4ECFF]/50 flex items-center justify-center border-b border-[#D4ECFF] group-hover:bg-[#D4ECFF] transition-colors duration-200">
-                  <div className="text-center">
-                    <div className="w-10 h-10 rounded-xl bg-white mx-auto flex items-center justify-center mb-2 shadow-sm text-[#0085FF]">
-                      {isPreview ? (
-                        <FileText size={18} aria-hidden="true" />
-                      ) : (
-                        <ExternalLink size={18} aria-hidden="true" />
-                      )}
-                    </div>
-                    <span className="text-[#94A3B8] text-xs">
-                      {isPreview ? "Preview thesis" : "Open DOI"}
-                    </span>
-                  </div>
-                </div>
+                <ProjectPreviewImage project={project} />
 
-                <div className="p-5">
+                <div className="p-5 flex h-[calc(100%-11rem)] flex-col">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <h3 className="font-bold text-[#001233] group-hover:text-[#0353A4] transition-colors">
                       {project.title}
@@ -139,7 +146,7 @@ export default function Projects() {
                   <p className="text-sm text-[#334155] leading-relaxed mb-4">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 mb-5">
                     {project.tech.map((t) => (
                       <span
                         key={t}
@@ -148,6 +155,10 @@ export default function Projects() {
                         {t}
                       </span>
                     ))}
+                  </div>
+                  <div className="mt-auto flex items-center gap-1.5 text-xs font-semibold text-[#0353A4]">
+                    <span>{project.link ? "Open DOI" : "Preview thesis"}</span>
+                    <ExternalLink size={14} aria-hidden="true" />
                   </div>
                 </div>
               </CardTag>

@@ -6,8 +6,8 @@ import Image from "next/image";
 const STATS = [
   { value: "2+", label: "Years Credit Risk" },
   { value: "2", label: "Journal Publications" },
-  { value: "7+", label: "Professional Certificates" },
-  { value: "M.Eng.", label: "Industrial Engineering" },
+  { value: "B.Eng.", label: "Industrial Engineering (First Class Honours)" },
+  { value: "M.Eng.", label: "Industrial Engineering (Thesis: Very Good)" },
 ];
 
 // Profile sits at z-[20]. Photos at z-[10] slide under it at the edges.
@@ -90,10 +90,18 @@ export default function Hero() {
 
           {/* ── Left: text ── */}
           <div className="flex-1 space-y-6">
-            <div className="hero-animate" style={{ animationDelay: "0ms" }}>
+            <div className="hero-animate flex flex-wrap items-center gap-4" style={{ animationDelay: "0ms" }}>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#0085FF]/35 bg-[#0085FF]/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0085FF] animate-pulse" />
                 <span className="text-[#64B5F6] text-xs font-semibold tracking-[0.18em] uppercase">AI / ML Engineer</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#A855F7]/35 bg-[#A855F7]/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
+                <span className="text-[#D8B4FE] text-xs font-semibold tracking-[0.18em] uppercase">Data Scientist</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#22C55E]/35 bg-[#22C55E]/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+                <span className="text-[#86EFAC] text-xs font-semibold tracking-[0.18em] uppercase">Credit Risk Consultant</span>
               </span>
             </div>
 
@@ -105,7 +113,7 @@ export default function Hero() {
 
             <div className="hero-animate" style={{ animationDelay: "240ms" }}>
               <p className="text-white/50 text-base md:text-lg leading-relaxed max-w-md">
-                Building intelligent systems that solve real problems.
+                From a foundation in modeling, the journey now carries AI impact beyond experimentation.
                 This site is a live demo — the AI chatbot answers questions
                 about me from my personal documents.
               </p>
@@ -118,7 +126,7 @@ export default function Hero() {
               {mounted ? (
                 <button
                   onClick={() => document.getElementById("chat-trigger")?.click()}
-                  className="btn-bounce px-6 py-3 border border-white/20 text-white rounded-xl text-sm font-semibold hover:border-[#0085FF] hover:text-[#64B5F6] transition-colors"
+                  className="btn-bounce px-6 py-3 border border-white/35 text-white rounded-xl text-sm font-semibold hover:border-[#0085FF] hover:text-[#64B5F6] transition-colors"
                 >
                   Ask My AI →
                 </button>

@@ -20,7 +20,7 @@ export default function About() {
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#001233] mb-8 leading-tight">
-              Engineer by trade,<br />builder at heart.
+              Beyond experiments,<br />toward practical AI implementation.
             </h2>
             <div className="space-y-5 text-[#334155] leading-relaxed text-base">
               <p>
@@ -52,10 +52,10 @@ export default function About() {
                 { label: "Languages", value: "Thai · Native\nEnglish · TOEIC 890" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-[#94A3B8] text-xs font-medium uppercase tracking-wider mb-1">
+                  <p className="text-[#0353A4] text-xs font-semibold uppercase tracking-wider mb-1">
                     {stat.label}
                   </p>
-                  <p className="text-[#001233] font-bold text-lg whitespace-pre-line">{stat.value}</p>
+                  <p className="text-[#001233] font-semibold text-lg whitespace-pre-line">{stat.value}</p>
                 </div>
               ))}
             </div>

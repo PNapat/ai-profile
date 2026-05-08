@@ -9,6 +9,7 @@ class ThreadMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     session_id: str | None = None
+    instructions: str | None = None
     thread: list[ThreadMessage] = []
 
 
