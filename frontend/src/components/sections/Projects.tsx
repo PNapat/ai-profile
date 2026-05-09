@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
   {
     title: "Predicting E-cigarette Curiosity and Susceptibility Among Students",
     description:
-      "Developed multiclass machine learning pipelines using XGBoost, feature selection, oversampling, and one-vs-rest strategies to predict varying levels of adolescent e-cigarette curiosity and susceptibility.",
+      "Developed multiclass machine learning pipelines using various machine learning algorithms and techniques, including feature selection, oversampling, and one-vs-rest strategies, to predict varying levels of adolescent e-cigarette curiosity and susceptibility.",
     tech: ["Explainable AI", "MissForest", "Multiclass", "Boruta-SHAP", "OvR", "SMOTE", "ADASYN"],
     status: "Thesis",
     previewFile: "/Thesis Report.pdf",
