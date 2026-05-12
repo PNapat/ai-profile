@@ -59,8 +59,7 @@ export default function ChatBubble() {
     setIsLoading(true);
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-      const res = await fetch(`${apiBase}/api/chat`, {
+      const res = await fetch(`/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -69,6 +68,7 @@ export default function ChatBubble() {
           thread: messages.map(({ role, content }) => ({ role, content })),
         }),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
